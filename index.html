@@ -16,6 +16,7 @@
             --error-color: #ef4444;
             --accent-color: #5c7956; 
             --highlight-color: #84cc16; 
+            --drive-color: #1a73e8;
         }
 
         * { box-sizing: border-box; font-family: 'Inter', sans-serif; margin: 0; padding: 0; }
@@ -70,19 +71,18 @@
         th, td { border: 1px solid var(--border-color); padding: 8px 6px; text-align: left; vertical-align: top; word-wrap: break-word; }
         th { background-color: var(--primary-color); color: white; position: sticky; top: 0; z-index: 10; white-space: nowrap; vertical-align: middle; }
 
-        /* Adjusted widths: Reduced Kompetensi & Keterampilan width */
         th:nth-child(1), td:nth-child(1) { width: 30px; text-align: center; }
-        th:nth-child(2), td:nth-child(2) { width: 40px; text-align: center; } /* Tahap */
-        th:nth-child(3), td:nth-child(3) { width: 60px; } /* Kode MK */
-        th:nth-child(4), td:nth-child(4) { width: 60px; } /* Jenis MK */
-        th:nth-child(5), td:nth-child(5) { width: 50px; text-align: center; } /* Semester */
-        th:nth-child(6), td:nth-child(6) { width: 150px; font-weight: 500; } /* Nama MK (Widened) */
-        th:nth-child(7), td:nth-child(7) { width: 30px; text-align: center; } /* SKS */
-        th:nth-child(8), td:nth-child(8) { width: 30px; } /* Kompetensi (Reduced) */
-        th:nth-child(9), td:nth-child(9) { width: 30px; } /* Keterampilan (Reduced) */
-        th:nth-child(10), td:nth-child(10) { width: 30px; } /* Metode */
-        th:nth-child(11), td:nth-child(11) { width: 50px; text-align: center; } /* Nilai */
-        th:nth-child(12), td:nth-child(12) { width: 60px; text-align: center; font-weight: 600; } /* CPL */
+        th:nth-child(2), td:nth-child(2) { width: 40px; text-align: center; } 
+        th:nth-child(3), td:nth-child(3) { width: 60px; } 
+        th:nth-child(4), td:nth-child(4) { width: 60px; } 
+        th:nth-child(5), td:nth-child(5) { width: 50px; text-align: center; } 
+        th:nth-child(6), td:nth-child(6) { width: 220px; font-weight: 500; } 
+        th:nth-child(7), td:nth-child(7) { width: 30px; text-align: center; } 
+        th:nth-child(8), td:nth-child(8) { width: 16%; } 
+        th:nth-child(9), td:nth-child(9) { width: 16%; } 
+        th:nth-child(10), td:nth-child(10) { width: 18%; } 
+        th:nth-child(11), td:nth-child(11) { width: 50px; text-align: center; } 
+        th:nth-child(12), td:nth-child(12) { width: 40px; text-align: center; font-weight: 600; } 
 
         .nilai-input { width: 100%; max-width: 45px; padding: 6px 4px; border: 1px solid var(--border-color); border-radius: 4px; text-transform: uppercase; text-align: center; font-weight: 600; }
 
@@ -90,7 +90,7 @@
         .scrollable-content::-webkit-scrollbar { width: 4px; }
         .scrollable-content::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
 
-        .btn { padding: 10px 16px; border: none; border-radius: 4px; cursor: pointer; font-weight: 500; transition: all 0.2s; box-shadow: 0 1px 2px rgba(0,0,0,0.05); display: inline-flex; justify-content: center; align-items: center; }
+        .btn { padding: 10px 16px; border: none; border-radius: 4px; cursor: pointer; font-weight: 500; transition: all 0.2s; box-shadow: 0 1px 2px rgba(0,0,0,0.05); display: inline-flex; justify-content: center; align-items: center; gap: 6px; }
         .btn-highlight { background-color: var(--highlight-color); color: #111827; font-weight: 700; box-shadow: 0 4px 6px -1px rgba(132,204,22,0.4); border: 1px solid #65a30d; }
         .btn-highlight:hover { background-color: #a3e635; }
         .btn-primary { background-color: var(--primary-color); color: white; }
@@ -100,6 +100,8 @@
         .btn-danger { background-color: var(--error-color); color: white; }
         .btn-info { background-color: #3b82f6; color: white; }
         .btn-info:hover { background-color: #2563eb; }
+        .btn-drive { background-color: var(--drive-color); color: white; }
+        .btn-drive:hover { background-color: #1557b0; }
 
         .delete-btn { background: none; border: none; color: var(--error-color); cursor: pointer; font-size: 18px; padding: 2px 6px; font-weight: bold; border-radius: 4px; }
 
@@ -134,16 +136,8 @@
         }
 
         @media print {
-            @page { 
-                margin: 0; /* Removes Browser Headers & Footers (Timestamp, Filepath) */
-                size: A4 landscape; 
-            }
-            body { 
-                background-color: white; 
-                padding: 0; 
-                margin: 10mm 15mm; /* Inner margin to keep content safe from physical edge */
-                font-size: 8px; 
-            }
+            @page { margin: 0; size: A4 landscape; }
+            body { background-color: white; padding: 0; margin: 10mm 15mm; font-size: 8px; }
             .container { box-shadow: none; max-width: 100%; width: 100%; padding: 0; margin: 0; }
             .no-print, .controls, .add-mk-container, .import-box, .delete-col, .delete-btn, .modal { display: none !important; }
             .app-name, .footer { display: none !important; }
@@ -154,18 +148,17 @@
             th { background-color: var(--primary-color) !important; color: white !important; -webkit-print-color-adjust: exact; }
             .scrollable-content { max-height: none; overflow: visible; }
 
-            /* Print widths roughly summing to 100% (Reduced Kompetensi & Keterampilan) */
-            th:nth-child(2), td:nth-child(2) { width: 3%; } /* Tahap */
-            th:nth-child(3), td:nth-child(3) { width: 6%; } /* Kode MK */
-            th:nth-child(4), td:nth-child(4) { width: 5%; } /* Jenis MK */
-            th:nth-child(5), td:nth-child(5) { width: 3%; } /* Semester */
-            th:nth-child(6), td:nth-child(6) { width: 18%; } /* Nama MK (Widened) */
-            th:nth-child(7), td:nth-child(7) { width: 3%; } /* SKS */
-            th:nth-child(8), td:nth-child(8) { width: 17%; } /* Kompetensi (Reduced) */
-            th:nth-child(9), td:nth-child(9) { width: 17%; } /* Keterampilan (Reduced) */
-            th:nth-child(10), td:nth-child(10) { width: 22%; } /* Metode (Widened) */
-            th:nth-child(11), td:nth-child(11) { width: 3%; } /* Nilai */
-            th:nth-child(12), td:nth-child(12) { width: 3%; } /* CPL */
+            th:nth-child(2), td:nth-child(2) { width: 3%; } 
+            th:nth-child(3), td:nth-child(3) { width: 6%; } 
+            th:nth-child(4), td:nth-child(4) { width: 5%; } 
+            th:nth-child(5), td:nth-child(5) { width: 3%; } 
+            th:nth-child(6), td:nth-child(6) { width: 18%; } 
+            th:nth-child(7), td:nth-child(7) { width: 3%; } 
+            th:nth-child(8), td:nth-child(8) { width: 17%; } 
+            th:nth-child(9), td:nth-child(9) { width: 17%; } 
+            th:nth-child(10), td:nth-child(10) { width: 22%; } 
+            th:nth-child(11), td:nth-child(11) { width: 3%; } 
+            th:nth-child(12), td:nth-child(12) { width: 3%; } 
 
             .nilai-input { border: none; font-weight: bold; padding: 0; background: transparent; width: 100%; text-align: center; font-size: 8px; }
             .progress-bar-container, .progress-bar { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
@@ -188,13 +181,13 @@
         <p class="guide-text">Masukkan nilai huruf yang Anda dapatkan pada kotak di kolom "Nilai" untuk masing-masing mata kuliah. Jika Anda sudah memiliki deretan nilai yang berurutan di Excel pribadi, Anda cukup melakukan copy pada sel Excel tersebut dan menekan paste di kotak input baris pertama aplikasi untuk pengisian massal otomatis. Jika ada mata kuliah stase luar yang belum muncul, ketik nama mata kuliah tersebut pada menu "Tambahkan Mata Kuliah Lain" di atas tabel lalu klik "+ Tambah ke Tabel".</p>
 
         <h3 class="guide-title">Evaluasi Capaian Pembelajaran Lulusan (CPL)</h3>
-        <p class="guide-text">Setelah nilai Anda terisi, klik tombol kuning "Hitung Progress CPL" yang berada di atas tabel. Sistem akan segera mengkalkulasi data Anda dan memunculkan grafik bar chart visual di bagian bawah halaman. Grafik ini merangkum persentase pemenuhan 16 standar kompetensi lulusan Anda berdasarkan mata kuliah yang telah diselesaikan.</p>
+        <p class="guide-text">Setelah nilai Anda terisi, klik tombol kuning "Hitung Progress CPL" yang berada di atas tabel. Sistem akan segera mengkalkulasi data Anda dan memunculkan grafik bar chart visual di bagian bawah halaman.</p>
 
         <h3 class="guide-title">Menyimpan dan Melanjutkan Progres (Autofill)</h3>
-        <p class="guide-text">Pastikan Anda menekan tombol "Save as Excel" setiap kali selesai melakukan pembaruan data agar rekam jejak Anda tersimpan ke dalam perangkat (laptop/HP). Di kemudian hari saat Anda ingin menambahkan nilai baru, Anda tidak perlu mengetik ulang dari awal. Cukup klik menu "Lanjutkan progres sebelumnya (Autofill)" di bagian paling atas aplikasi, unggah file Excel terakhir Anda, dan seluruh tabel beserta nilainya akan terisi kembali secara otomatis.</p>
+        <p class="guide-text">Pastikan Anda menekan tombol "Save as Excel" setiap kali selesai melakukan pembaruan data agar rekam jejak Anda tersimpan ke dalam perangkat. Di kemudian hari, cukup klik menu "Lanjutkan progres sebelumnya (Autofill)" dan unggah file Excel terakhir Anda untuk mengisi otomatis seluruh nilai Anda.</p>
 
-        <h3 class="guide-title">Mencetak Laporan</h3>
-        <p class="guide-text">Klik tombol abu-abu "Print" untuk mencetak dokumen secara fisik untuk keperluan supervisi atau sekadar menyimpannya ke dalam format PDF. Sistem aplikasi ini sudah merancang tata letak cetakan secara otomatis ke dalam format kertas A4 landscape yang ringkas, sehingga seluruh kolom tabel beserta grafik CPL tidak akan terpotong.</p>
+        <h3 class="guide-title">Mencetak dan Upload PDF Laporan</h3>
+        <p class="guide-text">Klik tombol abu-abu <b>"Save as PDF"</b> untuk mencetak dokumen, lalu pilih <i>Destination: Save as PDF</i> di browser Anda. Setelah file PDF tersimpan di perangkat Anda, klik tombol biru <b>"Upload ke GDrive"</b>. Sebuah tab baru berisi folder Google Drive akan terbuka, dan Anda cukup menarik <i>(drag-and-drop)</i> file PDF Anda ke dalam folder tersebut untuk dikumpulkan.</p>
     </div>
 </div>
 
@@ -254,7 +247,12 @@
     <div class="controls no-print">
         <button class="btn btn-highlight" onclick="window.hitungProgress()">Hitung Progress CPL</button>
         <button class="btn btn-secondary" onclick="window.saveAsExcel()">Save as Excel</button>
-        <button class="btn btn-secondary" onclick="window.print()">Print</button>
+        <button class="btn btn-secondary" onclick="window.triggerPrint('pdf')">Save as PDF</button>
+        <button class="btn btn-secondary" onclick="window.triggerPrint('print')">Print</button>
+        <button class="btn btn-drive" onclick="window.open('https://drive.google.com/drive/folders/1tDSvrrsdsZdtFelgNpvTbKBTNd0V0FGT', '_blank')">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7.71 3.5L1.15 15l3.43 6 6.55-11.5M9.73 15L6.3 21h13.12l3.43-6M13.88 3.5L10.45 9.5 17 21h6.56"></path></svg>
+            Upload ke GDrive
+        </button>
         <button class="btn btn-info" onclick="document.getElementById('panduan-modal').style.display='block'">Panduan</button>
         <button class="btn btn-danger" onclick="window.resetApp()" style="margin-left: auto;">Reset</button>
     </div>
@@ -285,7 +283,6 @@
                 </tr>
             </thead>
             <tbody id="matkul-body" onpaste="handlePaste(event)">
-                <!-- Rows generated here -->
             </tbody>
         </table>
     </div>
@@ -319,7 +316,6 @@
 <script>
     let namaDict = {}; let matkulData = []; let cplData = []; let cplTotals = {};
 
-    // Close modal when clicking outside of it
     window.onclick = function(event) {
         const modal = document.getElementById('panduan-modal');
         if (event.target == modal) {
@@ -538,6 +534,11 @@
 
     window.saveAsExcel = function() {
         if (typeof XLSX === 'undefined') { alert('Library Excel belum dimuat.'); return; }
+
+        const nama = document.getElementById('nama').value || 'Nama';
+        const nim = document.getElementById('nim').value || 'NIM';
+        const tahapVal = document.getElementById('tahap').value || 'Tahap';
+
         const wb = XLSX.utils.book_new();
         const ws1_data = [
             ["EVALUASI MATA KULIAH DAN CAPAIAN PENGGUNA LULUSAN"],
@@ -568,7 +569,30 @@
             });
             XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(ws2_data), "OUTPUT 2");
         }
-        XLSX.writeFile(wb, `eMATCA_${document.getElementById('nama').value.replace(/ /g, '_') || 'Peserta'}.xlsx`);
+
+        // Exact format: Tahap_ Nama Residen_NIM
+        const fileName = `${tahapVal}_ ${nama}_${nim}.xlsx`;
+        XLSX.writeFile(wb, fileName);
+    };
+
+    window.triggerPrint = function(mode) {
+        const oldTitle = document.title;
+        const nama = document.getElementById('nama').value || 'Nama';
+        const nim = document.getElementById('nim').value || 'NIM';
+        const tahapVal = document.getElementById('tahap').value || 'Tahap';
+
+        // Manipulate page title to force default PDF/Print filename
+        // Exact format: Tahap_ Nama Residen_NIM
+        document.title = `${tahapVal}_ ${nama}_${nim}`;
+
+        if(mode === 'pdf') {
+            alert("PENTING:\nUntuk menyimpan sebagai PDF, pastikan Anda mengubah pengaturan/destination Printer Anda menjadi 'Save as PDF' (Simpan sebagai PDF) pada layar yang akan muncul.");
+        }
+
+        window.print();
+
+        // Restore title after print dialog closes
+        setTimeout(() => { document.title = oldTitle; }, 1500);
     };
 
     window.handleExcelUpload = function(event) {
