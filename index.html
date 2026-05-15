@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>eMATCA</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -33,7 +33,7 @@
         }
 
         .container {
-            width: 98%;
+            width: 100%;
             max-width: 1800px;
             margin: 0 auto;
             background: white;
@@ -92,7 +92,7 @@
 
         .form-group select, .form-group input {
             flex: 1;
-            padding: 8px 12px;
+            padding: 10px 12px;
             border: 1px solid var(--border-color);
             border-radius: 4px;
             font-size: 14px;
@@ -106,11 +106,24 @@
             box-shadow: 0 0 0 2px var(--secondary-color);
         }
 
+        .table-hint {
+            display: none;
+            text-align: center;
+            color: #d97706;
+            font-size: 12px;
+            font-style: italic;
+            margin-bottom: 10px;
+            background-color: #fef3c7;
+            padding: 8px;
+            border-radius: 4px;
+        }
+
         .table-container {
             overflow-x: auto;
-            margin-top: 20px;
+            margin-top: 10px;
             margin-bottom: 20px;
             width: 100%;
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
         }
 
         table {
@@ -148,7 +161,7 @@
 
         .nilai-input {
             width: 50px;
-            padding: 6px;
+            padding: 8px 6px;
             border: 1px solid var(--border-color);
             border-radius: 4px;
             text-transform: uppercase;
@@ -157,7 +170,7 @@
         }
 
         .btn {
-            padding: 8px 16px;
+            padding: 10px 16px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
@@ -165,6 +178,9 @@
             margin-right: 10px;
             transition: all 0.2s;
             box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .btn-highlight { 
@@ -176,32 +192,23 @@
         }
         .btn-highlight:hover { 
             background-color: #a3e635; 
-            transform: translateY(-1px);
         }
 
         .btn-primary { background-color: var(--primary-color); color: white; }
-        .btn-primary:hover { background-color: var(--accent-color); }
-
         .btn-success { background-color: #65a30d; color: white; }
-        .btn-success:hover { background-color: #4d7c0f; }
-
         .btn-secondary { background-color: #64748b; color: white; }
-        .btn-secondary:hover { background-color: #475569; }
-
         .btn-danger { background-color: var(--error-color); color: white; }
-        .btn-danger:hover { background-color: #dc2626; }
 
         .delete-btn {
             background: none;
             border: none;
             color: var(--error-color);
             cursor: pointer;
-            font-size: 18px;
-            padding: 4px 8px;
+            font-size: 20px;
+            padding: 4px 10px;
             font-weight: bold;
             border-radius: 4px;
         }
-        .delete-btn:hover { background-color: #fee2e2; }
 
         .footer {
             margin-top: 40px;
@@ -223,8 +230,6 @@
             overflow: hidden;
             height: 24px;
             border: 1px solid var(--border-color);
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
         }
 
         .progress-bar {
@@ -237,8 +242,6 @@
             line-height: 24px;
             white-space: nowrap;
             transition: width 0.5s ease-in-out;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
         }
 
         #output2-container {
@@ -255,70 +258,100 @@
             padding-bottom: 5px;
         }
 
-        /* Print styles optimization for A4 Landscape Fit */
-        @media print {
-            @page {
-                margin: 10mm;
-                size: A4 landscape;
+        /* =========================================
+           MOBILE RESPONSIVE STYLES (New Additions)
+           ========================================= */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+                font-size: 13px;
             }
+            .container {
+                padding: 15px;
+                width: 100%;
+            }
+
+            /* Header Stacking */
+            .header {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding-top: 0;
+            }
+            .app-name, .logo-interna {
+                position: static;
+            }
+            .app-name {
+                margin-bottom: 15px;
+                font-size: 22px;
+            }
+            .logo-interna {
+                width: 80px;
+                margin-bottom: 15px;
+            }
+            .header h1 { font-size: 15px; }
+            .header h2 { font-size: 13px; }
+            .header h3 { font-size: 11px; }
+
+            /* Form Stacking */
+            .form-group {
+                flex-direction: column;
+                align-items: flex-start;
+                max-width: 100%;
+                margin-bottom: 15px;
+            }
+            .form-group label {
+                width: 100%;
+                margin-bottom: 8px;
+            }
+            .form-group select, .form-group input {
+                width: 100%;
+                padding: 12px; /* larger tap targets */
+            }
+
+            /* Controls/Buttons */
+            .controls {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .btn {
+                width: 100%;
+                margin-right: 0;
+                padding: 12px 16px; /* larger tap targets */
+            }
+
+            /* Table Hint */
+            .table-hint {
+                display: block;
+            }
+        }
+
+        @media print {
+            @page { margin: 10mm; size: A4 landscape; }
             body { background-color: white; padding: 0; font-size: 8px; }
             .container { box-shadow: none; max-width: 100%; width: 100%; padding: 0; margin: 0; }
-            .no-print, .controls, .delete-col, .delete-btn { display: none !important; }
+            .no-print, .controls, .delete-col, .delete-btn, .table-hint { display: none !important; }
             .app-name, .footer { display: none !important; }
-
             .table-container { overflow: visible; break-inside: auto; width: 100%; }
-            table { 
-                width: 100%; 
-                min-width: 100%; 
-                table-layout: fixed; /* Force fixed table layout to respect widths */
-                border-collapse: collapse;
-            }
+            table { width: 100%; min-width: 100%; table-layout: fixed; border-collapse: collapse; }
             tr { break-inside: avoid; page-break-inside: avoid; }
-
-            /* Compact padding and word wrap */
-            th, td { 
-                padding: 3px 2px; 
-                font-size: 8px; 
-                border: 1px solid #000; 
-                word-wrap: break-word;
-                overflow-wrap: break-word;
-                white-space: normal; /* Allow wrapping */
-            }
-            th { 
-                background-color: var(--primary-color) !important; 
-                color: white !important; 
-                -webkit-print-color-adjust: exact; 
-            }
-
-            /* Column Width Overrides for Print (Total ~ 100%) */
-            th:nth-child(2), td:nth-child(2) { width: 3%; } /* Tahap */
-            th:nth-child(3), td:nth-child(3) { width: 7%; } /* Kode MK */
-            th:nth-child(4), td:nth-child(4) { width: 5%; } /* Jenis MK */
-            th:nth-child(5), td:nth-child(5) { width: 4%; } /* Semester */
-            th:nth-child(6), td:nth-child(6) { width: 10%; } /* Nama MK */
-            th:nth-child(7), td:nth-child(7) { width: 3%; } /* SKS */
-            th:nth-child(8), td:nth-child(8) { width: 20%; min-width: auto; } /* Kompetensi Klinis */
-            th:nth-child(9), td:nth-child(9) { width: 18%; min-width: auto; } /* Keterampilan Klinis */
-            th:nth-child(10), td:nth-child(10) { width: 14%; min-width: auto; } /* Metode Penilaian */
-            th:nth-child(11), td:nth-child(11) { width: 8%; } /* SPV Penguji */
-            th:nth-child(12), td:nth-child(12) { width: 4%; } /* Jml Ujian */
-            th:nth-child(13), td:nth-child(13) { width: 4%; } /* Nilai */
-            th:nth-child(14), td:nth-child(14) { width: 3%; } /* CPL */
-
-            .nilai-input { 
-                border: none; 
-                font-weight: bold; 
-                padding: 0; 
-                background: transparent; 
-                width: 100%; 
-                text-align: center; 
-                font-size: 8px; 
-            }
-
-            .progress-bar-container, .progress-bar {
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
+            th, td { padding: 3px 2px; font-size: 8px; border: 1px solid #000; word-wrap: break-word; overflow-wrap: break-word; white-space: normal; }
+            th { background-color: var(--primary-color) !important; color: white !important; -webkit-print-color-adjust: exact; }
+            th:nth-child(2), td:nth-child(2) { width: 3%; }
+            th:nth-child(3), td:nth-child(3) { width: 7%; }
+            th:nth-child(4), td:nth-child(4) { width: 5%; }
+            th:nth-child(5), td:nth-child(5) { width: 4%; }
+            th:nth-child(6), td:nth-child(6) { width: 10%; }
+            th:nth-child(7), td:nth-child(7) { width: 3%; }
+            th:nth-child(8), td:nth-child(8) { width: 20%; min-width: auto; }
+            th:nth-child(9), td:nth-child(9) { width: 18%; min-width: auto; }
+            th:nth-child(10), td:nth-child(10) { width: 14%; min-width: auto; }
+            th:nth-child(11), td:nth-child(11) { width: 8%; }
+            th:nth-child(12), td:nth-child(12) { width: 4%; }
+            th:nth-child(13), td:nth-child(13) { width: 4%; }
+            th:nth-child(14), td:nth-child(14) { width: 3%; }
+            .nilai-input { border: none; font-weight: bold; padding: 0; background: transparent; width: 100%; text-align: center; font-size: 8px; }
+            .progress-bar-container, .progress-bar { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
         }
     </style>
 </head>
@@ -376,6 +409,10 @@
         <button class="btn btn-danger" onclick="window.resetApp()">Reset</button>
     </div>
 
+    <div class="table-hint no-print">
+        ↔️ Geser tabel ke kanan/kiri untuk melihat kolom lainnya
+    </div>
+
     <div class="table-container">
         <table id="matkul-table">
             <thead>
@@ -404,6 +441,11 @@
 
     <div id="output2-container">
         <div class="section-title">KETERCAPAIAN CPL PESERTA DIDIK</div>
+
+        <div class="table-hint no-print">
+            ↔️ Geser tabel ke kanan/kiri
+        </div>
+
         <div class="table-container">
             <table id="cpl-table" style="min-width: unset;">
                 <thead>
@@ -447,7 +489,6 @@
     }
 
     document.addEventListener("DOMContentLoaded", function() {
-        // Initialize Searchable Datalist for Names
         const namaDatalist = document.getElementById('nama-options');
         for (const [nama, nim] of Object.entries(namaDict)) {
             const option = document.createElement('option');
